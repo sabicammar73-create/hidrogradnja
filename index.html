@@ -338,4 +338,63 @@
             <p>&copy; 2026 Hidrogradnja. Sva prava zadržana. ://hidrogradnja.com</p>
         </footer>
     </div>
+        <!-- JAVASCRIPT ZA INTERAKTIVNOST I LOZINKU -->
+    <script>
+        const TAJNA_LOZINKA = "ZmajOdBosne2026";
+
+        // Ispravka naslova na ekranu za prijavu
+        window.addEventListener('DOMContentLoaded', () => {
+            const loginTitle = document.querySelector('#login-screen h1');
+            if (loginTitle) {
+                loginTitle.innerText = "HIDROGRADNJA";
+            }
+        });
+
+        function provjeriLozinku() {
+            const unesenaLozinka = document.getElementById("password-input").value;
+            const greskaElement = document.getElementById("login-error");
+            
+            if (unesenaLozinka === TAJNA_LOZINKA) {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                greskaElement.innerText = "Pogrešna lozinka! Pokušajte ponovno.";
+                document.getElementById("password-input").value = "";
+            }
+        }
+
+        // Omogućava pritisak na tipku Enter za prijavu
+        setTimeout(() => {
+            const input = document.getElementById("password-input");
+            if(input) {
+                input.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        provjeriLozinku();
+                    }
+                });
+            }
+        }, 500);
+
+        // Navigacija za mobitele
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if(mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenu.classList.toggle('toggle');
+            });
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if(navMenu) navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
+    
 
