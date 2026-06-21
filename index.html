@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidrogradnja | Moderna Građevinska Kompanija</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #f4b400;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --text: #333333;
+            --gray: #666666;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* --- STIL ZA ZAKLJUČAVANJE (LOGIN SCREEN) --- */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #222;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .login-box h2 {
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        .login-box p {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            background: #333;
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .login-box button:hover {
+            background: #004085;
+        }
+
+        #main-content {
+            display: none; /* Skriveno dok se ne unese lozinka */
+        }
+
+        /* --- NAVIGACIJA --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            color: #fff;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+        }
+
+        /* --- HERO SEKCIJA --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://unsplash.com') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: #fff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: #004085;
+        }
+
+        /* --- SEKCIJE --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .services-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 250px;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-menu { display: none; }
+            .hero-content h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ZASLON ZA PRIJAVU (SIGURNOST) -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>HIDROGRADNJA</h2>
+            <p>Zaštićeni razvojni portal za developere</p>
+            <input type="password" id="password-input" placeholder="Unesite razvojnu lozinku">
+            <button onclick="checkPassword()">Pristupi Stranici</button>
+        </div>
+    </div>
+
+    <!-- GLAVNI SADRŽAJ WEB STRANICE -->
+    <div id="main-content">
+        <header>
+            <div class="nav-container">
+                <div class="logo">HIDRO<span>GRADNJA</span></div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span><span></span><span></span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#pocetna" class="nav-link">Početna</a></li>
+                    <li><a href="#o-nama" class="nav-link">O Nama</a></li>
+                    <li><a href="#usluge" class="nav-link">Usluge</a></li>
+                    <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <section id="pocetna" class="hero">
+            <div class="hero-content">
+                <h1>Gradimo Vašu Budućnost</h1>
+                <p>Profesionalna rješenja u građevinarstvu i hidroinženjeringu.</p>
+                <a href="#kontakt" class="btn">Započnimo Projekat</a>
+            </div>
+        </section>
+
+        <section id="o-nama">
+            <h2 class="section-title">O Nama</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--gray);">
+                Kompanija Hidrogradnja je prepoznatljivi lider na tržištu građevinskih usluga. Naš tim stručnjaka posvećen je isporuci vrhunskog kvaliteta kroz inovativne inženjerske metode i najviše ekološke standarde.
+            </p>
+        </section>
+
+        <section id="usluge">
+            <h2 class="section-title">Naše Djelatnosti</h2>
+            <div class="services-grid">
+                <div class="service-card"><h3>Visokogradnja</h3><p>Izgradnja stambenih i poslovnih objekata ključ u ruke.</p></div>
+                <div class="service-card"><h3>Niskogradnja</h3><p>Izgradnja puteva, mostova i pripremni zemljani radovi.</p></div>
+                <div class="service-card"><h3>Hidroinženjering</h3><p>Projektovanje i izgradnja vodovodnih mreža i brana.</p></div>
+            </div>
+        </section>
+
+        <section id="kontakt">
+            <h2 class="section-title">Kontaktirajte Nas</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Uvijek na raspolaganju</h3>
+                    <p>📍 Adresa: Glavna ulica 45, 71000 Sarajevo</p>
+                    <p>📞 Telefon: +387 33 123 456</p>
+                    <p>✉️ Email: info@hidrogradnja.com</p>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Poruka je uspješno poslana!');">
+                    <input type="text" placeholder="Vaše Ime" required>
+                    <input type="email" placeholder="Vaš Email" required>
+                    <textarea rows="4" placeholder="Vaša poruka..." required></textarea>
+                    <button type="submit" class="btn">Pošalji</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Hidrogradnja. Sva prava zadržana. ://hidrogradnja.com</p>
+        </footer>
+    </div>
+
